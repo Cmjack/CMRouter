@@ -1,42 +1,48 @@
 //
-//  FirstViewController.m
+//  DetailViewController.m
 //  CMRouter
 //
 //  Created by caiming on 15/11/18.
 //  Copyright © 2015年 caiming. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "DetailViewController.h"
 
-@interface FirstViewController ()
+@interface DetailViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation DetailViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor greenColor];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button addTarget:self action:@selector(onBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"present" forState:UIControlStateNormal];
+    [button setTitle:@"back" forState:UIControlStateNormal];
     button.frame = CGRectMake(20, 60, 88, 44);
     [self.view addSubview:button];
-}
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 - (void)onBtnAction
 {
-    [[CMRouter sharedInstance]showViewController:@"DetailViewController" param:nil];
-    
+    if (self.presentingViewController) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*

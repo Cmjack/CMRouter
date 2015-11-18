@@ -18,6 +18,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+//    [CMRouter sharedInstance].rootViewController = [CMRouter sharedInstance]
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    [[CMRouter sharedInstance]setRootControllerWithClassName:@"RootTBC"];
+    
+    
     
     
     return YES;

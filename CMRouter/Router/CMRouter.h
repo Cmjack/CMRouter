@@ -51,5 +51,13 @@
 
 - (id)getObjectWithClassName:(NSString *)className;
 
+/**
+ *  设置rootController
+ *
+ *  @param className 类名
+ */
+- (void)setRootControllerWithClassName:(NSString *)className;
+
+- (void)popViewController;
 
 @end

@@ -19,6 +19,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
+    
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button addTarget:self action:@selector(onBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"push" forState:UIControlStateNormal];
+    button.frame = CGRectMake(20, 60, 88, 44);
+    [self.view addSubview:button];
+}
+
+- (void)onBtnAction
+{
+    [[CMRouter sharedInstance]showViewController:@"DetailViewController" param:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning

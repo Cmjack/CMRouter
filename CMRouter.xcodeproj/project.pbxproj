@@ -17,6 +17,7 @@
 		3F650EB01BFC44CE00BFCE35 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EAF1BFC44CE00BFCE35 /* SecondViewController.m */; };
 		3F650EB31BFC46F600BFCE35 /* RootTBC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EB21BFC46F600BFCE35 /* RootTBC.m */; };
 		3F650EB61BFC471E00BFCE35 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EB51BFC471E00BFCE35 /* FirstViewController.m */; };
+		3F650EBA1BFC536300BFCE35 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EB91BFC536300BFCE35 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		3F650EB41BFC471E00BFCE35 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		3F650EB51BFC471E00BFCE35 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		3F650EB71BFC487700BFCE35 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		3F650EB81BFC536300BFCE35 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		3F650EB91BFC536300BFCE35 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,8 @@
 				3F650E9A1BFC3E9500BFCE35 /* ViewController.m */,
 				3F650EAE1BFC44CE00BFCE35 /* SecondViewController.h */,
 				3F650EAF1BFC44CE00BFCE35 /* SecondViewController.m */,
+				3F650EB81BFC536300BFCE35 /* DetailViewController.h */,
+				3F650EB91BFC536300BFCE35 /* DetailViewController.m */,
 				3F650EB71BFC487700BFCE35 /* PrefixHeader.pch */,
 				3F650E9C1BFC3E9500BFCE35 /* Main.storyboard */,
 				3F650E9F1BFC3E9500BFCE35 /* Assets.xcassets */,
@@ -182,6 +187,7 @@
 				3F650EB01BFC44CE00BFCE35 /* SecondViewController.m in Sources */,
 				3F650EB31BFC46F600BFCE35 /* RootTBC.m in Sources */,
 				3F650EB61BFC471E00BFCE35 /* FirstViewController.m in Sources */,
+				3F650EBA1BFC536300BFCE35 /* DetailViewController.m in Sources */,
 				3F650E9B1BFC3E9500BFCE35 /* ViewController.m in Sources */,
 				3F650E981BFC3E9500BFCE35 /* AppDelegate.m in Sources */,
 				3F650EAD1BFC3F9000BFCE35 /* CMRouter.m in Sources */,

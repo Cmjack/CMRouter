@@ -14,12 +14,27 @@
 
 @implementation RootTBC
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor blueColor];
+    [self initSubviews];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)initSubviews
+{
+    UIViewController *vc1 = [[CMRouter sharedInstance]getObjectWithClassName:@"FirstViewController"];
+    UIViewController *vc2 = [[CMRouter sharedInstance]getObjectWithClassName:@"SecondViewController"];
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc2];
+    
+    self.viewControllers = @[vc1,nvc];
+    [vc1 setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"first" image:nil selectedImage:nil]];
+    [nvc setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"second" image:nil selectedImage:nil]];
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

@@ -62,6 +62,25 @@
     return vc;
 }
 
+- (void)setRootControllerWithClassName:(NSString *)className
+{
+    UIViewController *vc = [self getObjectWithClassName:className];
+    if (vc) {
+        
+        self.rootViewController = vc;
+    }else
+    {
+        [NSException raise:@"The name of the class does not exist" format:@"class name [%@]",className];
+    }
+}
+
+- (void)popViewController
+{
+    
+}
+
+
+
 #pragma mark - CMRouter_private
 
 - (void)__pushViewController:(UIViewController *)viewController parameters:(NSDictionary *)parameters atNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated
@@ -130,6 +149,18 @@
     {
         return rootViewController;
     }
+}
+
+#pragma mark - getter / setter
+- (void)setRootViewController:(UIViewController *)rootViewController
+{
+    [UIApplication sharedApplication].delegate.window.rootViewController = rootViewController;
+    [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
+}
+
+- (UIViewController *)rootViewController
+{
+    return [UIApplication sharedApplication].delegate.window.rootViewController;
 }
 
 @end

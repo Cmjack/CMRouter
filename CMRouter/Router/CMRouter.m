@@ -76,9 +76,22 @@
 
 - (void)popViewController
 {
+    UIViewController *currentController = [self currentController];
+    if (currentController.presentingViewController) {
+        
+        [currentController dismissViewControllerAnimated:YES completion:nil];
+        
+    }else
+    {
+        [currentController.navigationController popViewControllerAnimated:YES];
+    }
     
 }
 
+- (UIViewController *)currentController
+{
+    return  [[self class] __visibleViewControllerWithRootViewController:self.rootViewController];
+}
 
 
 #pragma mark - CMRouter_private

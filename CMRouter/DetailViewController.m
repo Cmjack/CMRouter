@@ -30,14 +30,7 @@
 
 - (void)onBtnAction
 {
-    if (self.presentingViewController) {
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    }else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [[CMRouter sharedInstance]popViewController];
 }
 
 - (void)didReceiveMemoryWarning {

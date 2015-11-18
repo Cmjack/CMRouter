@@ -24,6 +24,7 @@
  */
 @property (nonatomic, strong) UIViewController *rootViewController;
 
+
 /**
  *  获取当前NavigationController
  *
@@ -57,6 +58,8 @@
  *  @param className 类名
  */
 - (void)setRootControllerWithClassName:(NSString *)className;
+
+- (UIViewController *)currentController;
 
 - (void)popViewController;
 

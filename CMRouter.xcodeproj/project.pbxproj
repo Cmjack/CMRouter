@@ -13,6 +13,10 @@
 		3F650E9E1BFC3E9500BFCE35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F650E9C1BFC3E9500BFCE35 /* Main.storyboard */; };
 		3F650EA01BFC3E9500BFCE35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F650E9F1BFC3E9500BFCE35 /* Assets.xcassets */; };
 		3F650EA31BFC3E9500BFCE35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F650EA11BFC3E9500BFCE35 /* LaunchScreen.storyboard */; };
+		3F650EAD1BFC3F9000BFCE35 /* CMRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EAC1BFC3F9000BFCE35 /* CMRouter.m */; };
+		3F650EB01BFC44CE00BFCE35 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EAF1BFC44CE00BFCE35 /* SecondViewController.m */; };
+		3F650EB31BFC46F600BFCE35 /* RootTBC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EB21BFC46F600BFCE35 /* RootTBC.m */; };
+		3F650EB61BFC471E00BFCE35 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650EB51BFC471E00BFCE35 /* FirstViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,15 @@
 		3F650E9F1BFC3E9500BFCE35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F650EA21BFC3E9500BFCE35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F650EA41BFC3E9500BFCE35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F650EAB1BFC3F9000BFCE35 /* CMRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRouter.h; sourceTree = "<group>"; };
+		3F650EAC1BFC3F9000BFCE35 /* CMRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMRouter.m; sourceTree = "<group>"; };
+		3F650EAE1BFC44CE00BFCE35 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		3F650EAF1BFC44CE00BFCE35 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		3F650EB11BFC46F600BFCE35 /* RootTBC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTBC.h; sourceTree = "<group>"; };
+		3F650EB21BFC46F600BFCE35 /* RootTBC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTBC.m; sourceTree = "<group>"; };
+		3F650EB41BFC471E00BFCE35 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		3F650EB51BFC471E00BFCE35 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		3F650EB71BFC487700BFCE35 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +71,18 @@
 		3F650E921BFC3E9500BFCE35 /* CMRouter */ = {
 			isa = PBXGroup;
 			children = (
+				3F650EAA1BFC3F7700BFCE35 /* Router */,
 				3F650E961BFC3E9500BFCE35 /* AppDelegate.h */,
 				3F650E971BFC3E9500BFCE35 /* AppDelegate.m */,
+				3F650EB11BFC46F600BFCE35 /* RootTBC.h */,
+				3F650EB21BFC46F600BFCE35 /* RootTBC.m */,
+				3F650EB41BFC471E00BFCE35 /* FirstViewController.h */,
+				3F650EB51BFC471E00BFCE35 /* FirstViewController.m */,
 				3F650E991BFC3E9500BFCE35 /* ViewController.h */,
 				3F650E9A1BFC3E9500BFCE35 /* ViewController.m */,
+				3F650EAE1BFC44CE00BFCE35 /* SecondViewController.h */,
+				3F650EAF1BFC44CE00BFCE35 /* SecondViewController.m */,
+				3F650EB71BFC487700BFCE35 /* PrefixHeader.pch */,
 				3F650E9C1BFC3E9500BFCE35 /* Main.storyboard */,
 				3F650E9F1BFC3E9500BFCE35 /* Assets.xcassets */,
 				3F650EA11BFC3E9500BFCE35 /* LaunchScreen.storyboard */,
@@ -77,6 +98,15 @@
 				3F650E941BFC3E9500BFCE35 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3F650EAA1BFC3F7700BFCE35 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				3F650EAB1BFC3F9000BFCE35 /* CMRouter.h */,
+				3F650EAC1BFC3F9000BFCE35 /* CMRouter.m */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,8 +179,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F650EB01BFC44CE00BFCE35 /* SecondViewController.m in Sources */,
+				3F650EB31BFC46F600BFCE35 /* RootTBC.m in Sources */,
+				3F650EB61BFC471E00BFCE35 /* FirstViewController.m in Sources */,
 				3F650E9B1BFC3E9500BFCE35 /* ViewController.m in Sources */,
 				3F650E981BFC3E9500BFCE35 /* AppDelegate.m in Sources */,
+				3F650EAD1BFC3F9000BFCE35 /* CMRouter.m in Sources */,
 				3F650E951BFC3E9500BFCE35 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +295,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = CMRouter/PrefixHeader.pch;
 				INFOPLIST_FILE = CMRouter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com..CMRouter;
@@ -272,6 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = CMRouter/PrefixHeader.pch;
 				INFOPLIST_FILE = CMRouter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com..CMRouter;
@@ -298,6 +334,7 @@
 				3F650EA91BFC3E9500BFCE35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

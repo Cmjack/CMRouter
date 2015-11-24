@@ -17,6 +17,7 @@
  *
  *  @return 创建一个对象
  */
+
 + (instancetype)sharedInstance;
 
 /**
@@ -31,6 +32,7 @@
  *  @return 获取当前NavigationController
  */
 - (UINavigationController *)currentNavigationController;
+
 
 
 /**
@@ -59,7 +61,17 @@
  */
 - (void)setRootControllerWithClassName:(NSString *)className;
 
+
+/**
+ *  获取当前展示的controller
+ *
+ *  @return 获取当前展示的controller
+ */
 - (UIViewController *)currentController;
+
+/**
+ *  返回上一级页面 pop or dismisse
+ */
 
 - (void)popViewController;
 

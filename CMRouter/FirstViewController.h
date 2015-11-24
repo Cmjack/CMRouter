@@ -10,4 +10,20 @@
 
 @interface FirstViewController : UIViewController
 
+/**
+ *  uid
+ */
+
+@property(nonatomic,strong)NSString *uid;
+
+
+
+/**
+ *  callBack
+ */
+
+
+@property(nonatomic,strong)NSDictionary *callBack;
+
+
 @end

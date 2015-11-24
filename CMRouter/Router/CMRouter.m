@@ -28,13 +28,13 @@
 
 - (UINavigationController *)currentNavigationController
 {
-    UINavigationController *nvc = [[self class] __expectedVisibleNavigationController];
+    UINavigationController *nvc = [[self class] expectedVisibleNavigationController];
     return nvc;
 }
 
 - (void)showViewController:(NSString *)viewControllerName param:(NSDictionary *)param
 {
-    UINavigationController *nvc = [[self class] __expectedVisibleNavigationController];
+    UINavigationController *nvc = [[self class] expectedVisibleNavigationController];
     
     UIViewController *vc = [self getObjectWithClassName:viewControllerName];
     
@@ -42,11 +42,11 @@
         
         if (nvc) {
             
-            [self __pushViewController:vc parameters:param atNavigationController:nvc animated:YES];
+            [self pushViewController:vc parameters:param atNavigationController:nvc animated:YES];
             
         }else
         {
-            [self __pressntVController:vc parameters:param animated:YES];
+            [self pressntVController:vc parameters:param animated:YES];
         }
     }
     
@@ -90,34 +90,34 @@
 
 - (UIViewController *)currentController
 {
-    return  [[self class] __visibleViewControllerWithRootViewController:self.rootViewController];
+    return  [[self class] visibleViewControllerWithRootViewController:self.rootViewController];
 }
 
 
 #pragma mark - CMRouter_private
 
-- (void)__pushViewController:(UIViewController *)viewController parameters:(NSDictionary *)parameters atNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated
+- (void)pushViewController:(UIViewController *)viewController parameters:(NSDictionary *)parameters atNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated
 {
     if (viewController == nil || [viewController isKindOfClass:[UINavigationController class]] || navigationController == nil) return;
     
     [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        // todo 安全性检查
+        // todo 安全性检查 需要完善
         [viewController setValue:obj forKey:key];
     }];
     [viewController setHidesBottomBarWhenPushed:YES];
     [navigationController pushViewController:viewController animated:animated];
 }
 
-- (void)__pressntVController:(UIViewController *)vc parameters:(NSDictionary *)parameters animated:(BOOL)animated
+- (void)pressntVController:(UIViewController *)vc parameters:(NSDictionary *)parameters animated:(BOOL)animated
 {
     if (vc == nil || [vc isKindOfClass:[UINavigationController class]]) return;
     
     [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        // todo 安全性检查
+        // todo 安全性检查 需要完善
         [vc setValue:obj forKey:key];
     }];
     
-    UIViewController *vc1 = [[self class]__visibleViewControllerWithRootViewController:[[self class]__visibleViewController]];
+    UIViewController *vc1 = [[self class]visibleViewControllerWithRootViewController:[[self class]visibleViewController]];
     
     [vc1 presentViewController:vc animated:YES completion:^{
         
@@ -125,38 +125,38 @@
 }
 
 
-+ (UINavigationController *)__expectedVisibleNavigationController
++ (UINavigationController *)expectedVisibleNavigationController
 {
-    UIViewController *vc = [self __visibleViewControllerWithRootViewController:[UIApplication sharedApplication].delegate.window.rootViewController];
+    UIViewController *vc = [self visibleViewControllerWithRootViewController:[UIApplication sharedApplication].delegate.window.rootViewController];
     
     UINavigationController *nvc = (UINavigationController *)([vc isKindOfClass:[UINavigationController class]] ? vc : vc.navigationController);
     
     return nvc;
 }
 
-+ (UIViewController *)__visibleViewController
++ (UIViewController *)visibleViewController
 {
-    UIViewController *vc = [self __visibleViewControllerWithRootViewController:[UIApplication sharedApplication].delegate.window.rootViewController];
+    UIViewController *vc = [self visibleViewControllerWithRootViewController:[UIApplication sharedApplication].delegate.window.rootViewController];
     return vc;
 }
 
 
-+ (UIViewController*)__visibleViewControllerWithRootViewController:(UIViewController*)rootViewController
++ (UIViewController*)visibleViewControllerWithRootViewController:(UIViewController*)rootViewController
 {
     if ([rootViewController isKindOfClass:[UITabBarController class]])
     {
         UITabBarController *tbc = (UITabBarController*)rootViewController;
-        return [self __visibleViewControllerWithRootViewController:tbc.selectedViewController];
+        return [self visibleViewControllerWithRootViewController:tbc.selectedViewController];
     }
     else if ([rootViewController isKindOfClass:[UINavigationController class]])
     {
         UINavigationController *nvc = (UINavigationController*)rootViewController;
-        return [self __visibleViewControllerWithRootViewController:nvc.visibleViewController];
+        return [self visibleViewControllerWithRootViewController:nvc.visibleViewController];
     }
     else if (rootViewController.presentedViewController)
     {
         UIViewController *presentedVC = rootViewController.presentedViewController;
-        return [self __visibleViewControllerWithRootViewController:presentedVC];
+        return [self visibleViewControllerWithRootViewController:presentedVC];
     }
     else
     {

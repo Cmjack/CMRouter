@@ -44,6 +44,14 @@
 
 - (void)showViewController:(NSString *)viewControllerName param:(NSDictionary *)param;
 
+/**
+ *  present 一个 viewcontroller
+ *
+ *  @param viewControllerName 将要显示的viewController 的类名
+ *  @param param   目标 viewController  需要的参数
+ */
+
+
 - (void)presentController:(NSString *)viewControllerName param:(NSDictionary *)param;
 
 /**

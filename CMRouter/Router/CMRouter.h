@@ -44,6 +44,17 @@
 
 - (void)showViewController:(NSString *)viewControllerName param:(NSDictionary *)param;
 
+- (void)presentController:(NSString *)viewControllerName param:(NSDictionary *)param;
+
+/**
+ *  返回到当前导航的 类名为(viewControllerName )的 ViewController
+    从栈顶开始查找，
+ *
+ *  @param viewControllerName 返回到ViewController类名
+ *  @param param              该ViewController callBack参数
+ */
+- (void)backToViewController:(NSString *)viewControllerName param:(NSDictionary *)param;
+
 /**
  *  根据className 创建一个对象
  *

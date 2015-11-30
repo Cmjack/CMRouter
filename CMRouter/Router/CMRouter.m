@@ -52,6 +52,74 @@
     
 }
 
+- (void)presentController:(NSString *)viewControllerName param:(NSDictionary *)param
+{
+    UIViewController *vc = [self getObjectWithClassName:viewControllerName];
+    
+    if (vc) {
+        
+        [self pressntVController:vc parameters:param animated:YES];
+    }
+
+}
+
+
+/**
+ *  返回到当前导航的 类名为(viewControllerName )的 ViewController
+ 从栈顶开始查找，
+ *
+ *  @param viewControllerName 返回到ViewController类名
+ *  @param param              该ViewController callBack参数
+ */
+- (void)backToViewController:(NSString *)viewControllerName param:(NSDictionary *)param
+{
+    UINavigationController *nvc = self.currentNavigationController;
+    if (nvc&&nvc.viewControllers.count>1) {
+        
+        UIViewController *targetVC;
+        
+        for (NSInteger i = nvc.viewControllers.count-2; i>=0; i--)
+        {
+            UIViewController *vc = [nvc.viewControllers objectAtIndex:i];
+            NSString *className = NSStringFromClass([vc class]);
+            
+            if ([className isEqualToString:viewControllerName])
+            {
+                targetVC = vc;
+                
+                break;
+
+            }
+            
+        }
+        
+        if (targetVC)
+        {
+            [self setObject:targetVC parameters:param];
+            [nvc popToViewController:targetVC animated:YES];
+            
+        }else
+        {
+            
+            [NSException raise:@"not found target vc" format:@"className [%@]",viewControllerName];
+            
+        }
+        
+        
+        
+        
+    }else
+    {
+//        [NSException raise:@"not found target vc" format:@"className [%@]",viewControllerName];
+        
+        UIViewController *currentController = [self currentController];
+        NSLog(@"%@",currentController.presentingViewController);
+        
+
+    }
+    
+}
+
 - (id)getObjectWithClassName:(NSString *)className
 {
     UIViewController *vc = nil;
@@ -100,10 +168,8 @@
 {
     if (viewController == nil || [viewController isKindOfClass:[UINavigationController class]] || navigationController == nil) return;
     
-    [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        // todo 安全性检查 需要完善
-        [viewController setValue:obj forKey:key];
-    }];
+    [self setObject:viewController parameters:parameters];
+    
     [viewController setHidesBottomBarWhenPushed:YES];
     [navigationController pushViewController:viewController animated:animated];
 }
@@ -112,15 +178,22 @@
 {
     if (vc == nil || [vc isKindOfClass:[UINavigationController class]]) return;
     
-    [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        // todo 安全性检查 需要完善
-        [vc setValue:obj forKey:key];
-    }];
+    [self setObject:vc parameters:parameters];
     
     UIViewController *vc1 = [[self class]visibleViewControllerWithRootViewController:[[self class]visibleViewController]];
     
     [vc1 presentViewController:vc animated:YES completion:^{
         
+    }];
+}
+
+- (void)setObject:(UIViewController*)viewController parameters:(NSDictionary *)parameters
+{
+    if (viewController == nil || [viewController isKindOfClass:[UINavigationController class]]) return;
+    
+    [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        // todo 安全性检查 需要完善
+        [viewController setValue:obj forKey:key];
     }];
 }
 

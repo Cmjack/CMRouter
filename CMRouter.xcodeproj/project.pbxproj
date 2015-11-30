@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F1CB8481C044C100092D191 /* Second1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CB8471C044C100092D191 /* Second1ViewController.m */; };
 		3F650E951BFC3E9500BFCE35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650E941BFC3E9500BFCE35 /* main.m */; };
 		3F650E981BFC3E9500BFCE35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650E971BFC3E9500BFCE35 /* AppDelegate.m */; };
 		3F650E9B1BFC3E9500BFCE35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F650E9A1BFC3E9500BFCE35 /* ViewController.m */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F1CB8461C044C100092D191 /* Second1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Second1ViewController.h; sourceTree = "<group>"; };
+		3F1CB8471C044C100092D191 /* Second1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Second1ViewController.m; sourceTree = "<group>"; };
 		3F650E901BFC3E9500BFCE35 /* CMRouter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMRouter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F650E941BFC3E9500BFCE35 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3F650E961BFC3E9500BFCE35 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				3F650E9A1BFC3E9500BFCE35 /* ViewController.m */,
 				3F650EAE1BFC44CE00BFCE35 /* SecondViewController.h */,
 				3F650EAF1BFC44CE00BFCE35 /* SecondViewController.m */,
+				3F1CB8461C044C100092D191 /* Second1ViewController.h */,
+				3F1CB8471C044C100092D191 /* Second1ViewController.m */,
 				3F650EB81BFC536300BFCE35 /* DetailViewController.h */,
 				3F650EB91BFC536300BFCE35 /* DetailViewController.m */,
 				3F650EB71BFC487700BFCE35 /* PrefixHeader.pch */,
@@ -187,6 +192,7 @@
 				3F650EB01BFC44CE00BFCE35 /* SecondViewController.m in Sources */,
 				3F650EB31BFC46F600BFCE35 /* RootTBC.m in Sources */,
 				3F650EB61BFC471E00BFCE35 /* FirstViewController.m in Sources */,
+				3F1CB8481C044C100092D191 /* Second1ViewController.m in Sources */,
 				3F650EBA1BFC536300BFCE35 /* DetailViewController.m in Sources */,
 				3F650E9B1BFC3E9500BFCE35 /* ViewController.m in Sources */,
 				3F650E981BFC3E9500BFCE35 /* AppDelegate.m in Sources */,

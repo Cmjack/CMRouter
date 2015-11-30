@@ -19,22 +19,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor greenColor];
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button addTarget:self action:@selector(onBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self
+               action:@selector(onBtnAction)
+     forControlEvents:UIControlEventTouchUpInside];
+    
     [button setTitle:@"back" forState:UIControlStateNormal];
     button.frame = CGRectMake(20, 60, 88, 44);
     [self.view addSubview:button];
-    
-    
 }
 
 - (void)onBtnAction
 {
-    [[CMRouter sharedInstance]popViewController];
+//    [[CMRouter sharedInstance]popViewController];
+    [[CMRouter sharedInstance]backToViewController:@"SecondViewController" param:nil];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

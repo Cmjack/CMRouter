@@ -30,7 +30,7 @@
 
 - (void)onBtnAction
 {
-    [[CMRouter sharedInstance]showViewController:@"DetailViewController" param:nil];
+    [[CMRouter sharedInstance]showViewController:@"Second1ViewController" param:nil];
     
 }
 

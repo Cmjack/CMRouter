@@ -7,6 +7,7 @@
 //
 
 #import "CMRouter.h"
+#import <objc/runtime.h>
 
 @implementation CMRouter
 
@@ -34,34 +35,123 @@
 
 - (void)showViewController:(NSString *)viewControllerName param:(NSDictionary *)param
 {
-    UINavigationController *nvc = [[self class] expectedVisibleNavigationController];
-    
-    UIViewController *vc = [self getObjectWithClassName:viewControllerName];
-    
-    if (vc) {
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_async(mainQueue, ^{
         
-        if (nvc) {
+        UINavigationController *nvc = [[self class] expectedVisibleNavigationController];
+        
+        UIViewController *vc = [self getObjectWithClassName:viewControllerName];
+        
+        if (vc) {
             
-            [self pushViewController:vc parameters:param atNavigationController:nvc animated:YES];
+            if (nvc) {
+                
+                [self pushViewController:vc parameters:param atNavigationController:nvc animated:YES];
+                
+            }else
+            {
+                [self pressntVController:vc parameters:param animated:YES];
+            }
+        }
+        
+    });
+}
+
+/**
+ *  push or present 一个 viewcontroller
+ *
+ *  param viewControllerName 将要显示的viewController 的类名
+ *  param param   目标 viewController  需要的参数
+ */
+
+- (void)showViewControllers:(NSArray<NSString*> *)viewControllerNames params:(NSArray<NSDictionary *>*)params
+{
+    
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_async(mainQueue, ^{
+        
+        UINavigationController *nvc = [[self class] expectedVisibleNavigationController];
+        NSMutableArray *controllers = nvc.viewControllers.mutableCopy;
+        NSInteger i=0;
+        for (NSString *viewControllerName in viewControllerNames) {
             
-        }else
-        {
+            UIViewController *vc = [self getObjectWithClassName:viewControllerName];
+            [vc setHidesBottomBarWhenPushed:YES];
+            NSDictionary *param = [params objectAtIndex:i];
+            [self setObject:vc parameters:param];
+            [controllers addObject:vc];
+            
+            i++;
+        }
+        
+        if (controllers.count>0) {
+            
+            [nvc setViewControllers:controllers animated:YES];
+            
+        }
+    });
+    
+    
+}
+
+/**
+ *  push or present 一个 viewcontroller
+ *
+ *  param RouterModel
+ */
+
+
+- (void)showViewControllerWithRouterModel:(RouterModel*)model
+{
+    [self showViewController:model.className param:model.param];
+}
+
+- (void)presentControllerWithControllerName:(NSString *)viewControllerName param:(NSDictionary *)param
+{
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_async(mainQueue, ^{
+        
+        UIViewController *vc = [self getObjectWithClassName:viewControllerName];
+        
+        if (vc) {
+            
             [self pressntVController:vc parameters:param animated:YES];
         }
-    }
-    
-}
-
-- (void)presentController:(NSString *)viewControllerName param:(NSDictionary *)param
-{
-    UIViewController *vc = [self getObjectWithClassName:viewControllerName];
-    
-    if (vc) {
         
-        [self pressntVController:vc parameters:param animated:YES];
-    }
-
+    });
+    
+    
 }
+
+/**
+ *  present 一个 viewcontroller
+ *
+ *  param RouterModel
+ *
+ */
+
+
+- (void)presentControllerWithRouterModel:(RouterModel*)model
+{
+    [self presentControllerWithControllerName:model.className param:model.param];
+}
+
+- (void)presentController:(UIViewController *)controller param:(NSDictionary *)param
+{
+    [self pressntVController:controller parameters:param animated:YES];
+    
+}
+
+//- (void)presentController:(NSString *)viewControllerName param:(NSDictionary *)param
+//{
+//    UIViewController *vc = [self getObjectWithClassName:viewControllerName];
+//
+//    if (vc) {
+//
+//        [self pressntVController:vc parameters:param animated:YES];
+//    }
+//
+//}
 
 
 /**
@@ -71,24 +161,43 @@
  *  @param viewControllerName 返回到ViewController类名
  *  @param param              该ViewController callBack参数
  */
-- (void)backToViewController:(NSString *)viewControllerName param:(NSDictionary *)param
+- (BOOL)backToViewController:(NSString *)viewControllerName param:(NSDictionary *)param
 {
+    return  [self backToViewController:viewControllerName param:param animation:YES];
+}
+
+/**
+ *  返回到当前导航的 类名为(viewControllerName )的 ViewController
+ 从栈顶开始查找，
+ *
+ *  @param viewControllerName 返回到ViewController类名
+ *  @param param              该ViewController callBack参数
+ */
+
+
+- (BOOL)backToViewController:(NSString *)viewControllerName param:(NSDictionary *)param animation:(BOOL)animation
+{
+    __block UIViewController *targetVC;
+    
     UINavigationController *nvc = self.currentNavigationController;
     if (nvc&&nvc.viewControllers.count>1) {
         
-        UIViewController *targetVC;
         
         for (NSInteger i = nvc.viewControllers.count-2; i>=0; i--)
         {
             UIViewController *vc = [nvc.viewControllers objectAtIndex:i];
-            NSString *className = NSStringFromClass([vc class]);
-            
-            if ([className isEqualToString:viewControllerName])
-            {
-                targetVC = vc;
+            if (vc) {
                 
-                break;
-
+                NSString *className = NSStringFromClass([vc class]);
+                
+                if ([className isEqualToString:viewControllerName])
+                {
+                    targetVC = vc;
+                    
+                    break;
+                    
+                }
+                
             }
             
         }
@@ -96,27 +205,21 @@
         if (targetVC)
         {
             [self setObject:targetVC parameters:param];
-            [nvc popToViewController:targetVC animated:YES];
+            [nvc popToViewController:targetVC animated:animation];
+            
             
         }else
         {
             
-            [NSException raise:@"not found target vc" format:@"className [%@]",viewControllerName];
+            //                [NSException raise:@"not found target vc" format:@"className [%@]",viewControllerName];
             
         }
         
-        
-        
-        
     }else
     {
-//        [NSException raise:@"not found target vc" format:@"className [%@]",viewControllerName];
         
-        UIViewController *currentController = [self currentController];
-        NSLog(@"%@",currentController.presentingViewController);
-        
-
     }
+    return targetVC != nil;;
     
 }
 
@@ -138,7 +241,7 @@
         self.rootViewController = vc;
     }else
     {
-        [NSException raise:@"The name of the class does not exist" format:@"class name [%@]",className];
+        //        [NSException raise:@"The name of the class does not exist" format:@"class name [%@]",className];
     }
 }
 
@@ -154,6 +257,107 @@
         [currentController.navigationController popViewControllerAnimated:YES];
     }
     
+}
+
+/**
+ *  返回上一级页面 pop or dismisse
+ */
+
+- (void)popViewControllerWithAnimation:(BOOL)anmation
+{
+    UIViewController *currentController = [self currentController];
+    if (currentController.presentingViewController) {
+        
+        [currentController dismissViewControllerAnimated:anmation completion:nil];
+        
+    }else
+    {
+        [currentController.navigationController popViewControllerAnimated:anmation];
+    }
+    
+}
+
+/**
+ *  返回上一级页面 pop or dismisse
+ */
+
+- (void)popViewControllerWithParam:(NSDictionary *)param
+{
+    
+    
+    UINavigationController *nvc = self.currentNavigationController;
+    if (nvc.viewControllers.count>1&&param)
+    {
+        UIViewController *targetVC = [nvc.viewControllers objectAtIndex:nvc.viewControllers.count-2];
+        if (targetVC) {
+            [self setObject:targetVC parameters:param];
+        }
+    }
+    [self popViewController];
+    
+}
+
+/**
+ *  移除多个controller  count viewcontroller 的数量
+ */
+
+- (void)removeViewController:(NSInteger)count
+{
+    UIViewController *currentController = [self currentController];
+    if (currentController.presentingViewController) {
+        
+        [currentController dismissViewControllerAnimated:YES completion:nil];
+        
+    }else
+    {
+        if (count<currentController.navigationController.viewControllers.count)
+        {
+            
+            NSInteger index = currentController.navigationController.viewControllers.count - count-1;
+            UIViewController *vc = currentController.navigationController.viewControllers[index];
+            [currentController.navigationController popToViewController:vc animated:YES];
+            
+        }else
+        {
+            [currentController.navigationController popToRootViewControllerAnimated:YES];
+            
+        }
+        
+    }
+}
+
+
+- (void)removeControllers:(NSInteger)count
+{
+    
+    UINavigationController *nvc = [self currentNavigationController];
+    if ([nvc isKindOfClass:[UINavigationController class]])
+    {
+        if (nvc.viewControllers.count>count)
+        {
+            NSMutableArray *array = nvc.viewControllers.mutableCopy;
+            [array removeObjectsInRange:NSMakeRange(nvc.viewControllers.count-count, count)];
+            nvc.viewControllers = array.copy;
+        }
+    }
+    
+}
+
+
+/**
+ *  返回到根视图控制器
+ */
+- (void)popToRootViewController
+{
+    UIViewController *currentController = [self currentController];
+    if (currentController.presentingViewController) {
+        
+        [currentController dismissViewControllerAnimated:YES completion:nil];
+        
+    }else
+    {
+        [currentController.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (UIViewController *)currentController
@@ -172,17 +376,18 @@
     
     [viewController setHidesBottomBarWhenPushed:YES];
     [navigationController pushViewController:viewController animated:animated];
+    
 }
 
 - (void)pressntVController:(UIViewController *)vc parameters:(NSDictionary *)parameters animated:(BOOL)animated
 {
-    if (vc == nil || [vc isKindOfClass:[UINavigationController class]]) return;
+    if (vc == nil) return;
     
     [self setObject:vc parameters:parameters];
     
     UIViewController *vc1 = [[self class]visibleViewControllerWithRootViewController:[[self class]visibleViewController]];
     
-    [vc1 presentViewController:vc animated:YES completion:^{
+    [vc1 presentViewController:vc animated:animated completion:^{
         
     }];
 }
@@ -191,10 +396,40 @@
 {
     if (viewController == nil || [viewController isKindOfClass:[UINavigationController class]]) return;
     
-    [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        // todo 安全性检查 需要完善
-        [viewController setValue:obj forKey:key];
-    }];
+    NSArray *properties = [self getAllPropertiesWithObject:viewController.class];
+    
+    NSArray *superClassProperties = [self getAllPropertiesWithObject:viewController.superclass];
+    if ([parameters isKindOfClass:[NSDictionary class]]) {
+        [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            // todo 安全性检查 需要完善
+            
+            if ([superClassProperties containsObject:key])
+            {
+                [viewController setValue:obj forKey:key];
+            }
+            
+            if ([properties containsObject:key]) {
+                
+                [viewController setValue:obj forKey:key];
+            }
+            
+        }];
+    }
+    
+}
+
+- (NSArray *)getAllPropertiesWithObject:(Class)class
+{
+    u_int count;
+    objc_property_t *properties  =class_copyPropertyList(class, &count);
+    NSMutableArray *propertiesArray = [NSMutableArray arrayWithCapacity:count];
+    for (int i = 0; i<count; i++)
+    {
+        const char* propertyName =property_getName(properties[i]);
+        [propertiesArray addObject: [NSString stringWithUTF8String: propertyName]];
+    }
+    free(properties);
+    return propertiesArray;
 }
 
 
@@ -216,6 +451,7 @@
 
 + (UIViewController*)visibleViewControllerWithRootViewController:(UIViewController*)rootViewController
 {
+    NSLog(@"%@",rootViewController);
     if ([rootViewController isKindOfClass:[UITabBarController class]])
     {
         UITabBarController *tbc = (UITabBarController*)rootViewController;
@@ -224,11 +460,14 @@
     else if ([rootViewController isKindOfClass:[UINavigationController class]])
     {
         UINavigationController *nvc = (UINavigationController*)rootViewController;
-        return [self visibleViewControllerWithRootViewController:nvc.visibleViewController];
+        return [self visibleViewControllerWithRootViewController:nvc.viewControllers.lastObject];
     }
     else if (rootViewController.presentedViewController)
     {
         UIViewController *presentedVC = rootViewController.presentedViewController;
+        if ([presentedVC isKindOfClass:[UIAlertController class]]) {
+            return rootViewController;
+        }
         return [self visibleViewControllerWithRootViewController:presentedVC];
     }
     else
@@ -248,5 +487,12 @@
 {
     return [UIApplication sharedApplication].delegate.window.rootViewController;
 }
+
+@end
+
+
+@implementation RouterModel
+
+
 
 @end

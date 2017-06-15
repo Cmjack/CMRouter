@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   #
 
   s.license      = "MIT (example)"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -53,10 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "caiming" => "mcai@91jkys.com" }
-  # Or just: s.author    = "caiming"
-  # s.authors            = { "caiming" => "mcai@91jkys.com" }
-  # s.social_media_url   = "http://twitter.com/caiming"
+  s.author             = { "caiming" => "davis_cai@163.com" }
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -64,7 +61,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
+  s.platform     = :ios
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
@@ -90,7 +87,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Classes", "Classes/**/*.{h,m}"
+  s.source_files  = "Classes", "CMRouter/Router/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -129,7 +126,7 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # s.requires_arc = true
+  s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
